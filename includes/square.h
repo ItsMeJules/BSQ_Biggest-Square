@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 16:44:44 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/09/28 19:33:33 by jpeyron          ###   ########.fr       */
+/*   Updated: 2020/09/28 19:43:05 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,9 @@
 # define SQUARE_H
 
 t_square	create_square(int x, int y, int len);
-t_point		find_point(t_square sq, t_map map);
+int			has_obstacle(t_square sq, t_map map);
 int			square_contains(t_square sq, int x, int y);
 void		expand_square(t_square *sq, int len);
-
-typedef struct	s_point
-{
-	int	x;
-	int	y;
-}				t_point;
 
 typedef struct	s_square
 {
