@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 16:48:57 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/09/28 19:05:37 by jpeyron          ###   ########.fr       */
+/*   Updated: 2020/09/28 19:08:58 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ int			square_contains(t_square sq, int x, int y)
 			(sq.minY + sq.len) >= y && sq.minY <= y);
 }
 
-void		expand_square(t_square *sq)
+void		expand_square(t_square *sq, int len)
 {
-	sq->x += 1;
-	sq->y += 1;
+	sq->x += len;
+	sq->y += len;
+	sq->len += len;
 }
 
 t_square	create_square(int x, int y, int len)
