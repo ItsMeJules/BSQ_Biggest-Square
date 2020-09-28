@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 16:48:57 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/09/28 17:13:45 by jpeyron          ###   ########.fr       */
+/*   Updated: 2020/09/28 18:20:54 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,14 @@ int			square_contains(t_square sq, t_point pt)
 {
 	return (sq.max.x >= pt.x && sq.min.x <= pt.x &&
 			sq.max.y >= pt.y && sq.min.y <= pt.y);
+}
+
+int			square_len(t_square sq, int a)
+{
+	if (a)
+		return (sq.max.x - sq.min.x);
+	else
+		return (sq.max.y - sq.min.y);
 }
 
 t_square	create_square(t_point a, t_point b)
