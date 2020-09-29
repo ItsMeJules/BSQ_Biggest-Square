@@ -6,13 +6,12 @@
 /*   By: rblondel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 14:18:19 by rblondel          #+#    #+#             */
-/*   Updated: 2020/09/29 16:10:46 by rblondel         ###   ########.fr       */
+/*   Updated: 2020/09/29 17:22:11 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/get_map.h"
-#include "../includes/map.h"
-
+#include "get_map.h"
+#include "map.h"
 
 int		count_size(char *filename)
 {
@@ -54,9 +53,9 @@ char	*map_to_str(char *filename, int sizeof_file)
 
 t_map	*ft_get(char *file_path)
 {
-	t_map *map;
-	char *tab_str;
-	int i;
+	t_map	*map;
+	char	*tab_str;
+	int		i;
 
 	i = 0;
 	tab_str = map_to_str(file_path, count_size(file_path));

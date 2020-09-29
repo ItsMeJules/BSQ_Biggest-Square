@@ -6,14 +6,14 @@
 /*   By: rblondel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 15:34:05 by rblondel          #+#    #+#             */
-/*   Updated: 2020/09/29 16:16:52 by rblondel         ###   ########.fr       */
+/*   Updated: 2020/09/29 17:23:13 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/get_map.h"
 #include "../includes/map.h"
 
-void 	putstr(char *str)
+void	putstr(char *str)
 {
 	int i;
 

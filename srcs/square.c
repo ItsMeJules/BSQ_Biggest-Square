@@ -6,14 +6,14 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 16:48:57 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/09/29 16:39:14 by jpeyron          ###   ########.fr       */
+/*   Updated: 2020/09/29 17:23:22 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "square.h"
 #include "map.h"
 
-void		draw_square(t_square sq, t_map *map) 
+void		draw_square(t_square sq, t_map *map)
 {
 	int	x;
 	int	y;

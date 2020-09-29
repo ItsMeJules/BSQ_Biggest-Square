@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_struck_params.c                                :+:      :+:    :+:   */
+/*   get_struct_params.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 15:27:45 by rblondel          #+#    #+#             */
-/*   Updated: 2020/09/29 16:12:14 by rblondel         ###   ########.fr       */
+/*   Updated: 2020/09/29 17:22:50 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/get_map.h"
-#include "../includes/map.h"
+#include "get_map.h"
+#include "map.h"
 
 int		get_nbr_line(char *str)
 {
@@ -26,10 +26,10 @@ int		get_nbr_line(char *str)
 		nbr += str[i] - 48;
 		i++;
 	}
-	return(nbr);
+	return (nbr);
 }
 
-char get_blank(char *str)
+char	get_blank(char *str)
 {
 	int i;
 
@@ -39,7 +39,7 @@ char get_blank(char *str)
 	return (str[i]);
 }
 
-char get_obs(char *str)
+char	get_obs(char *str)
 {
 	int i;
 
@@ -49,7 +49,7 @@ char get_obs(char *str)
 	return (str[i + 1]);
 }
 
-char get_sq(char *str)
+char	get_sq(char *str)
 {
 	int i;
 
@@ -59,7 +59,7 @@ char get_sq(char *str)
 	return (str[i + 2]);
 }
 
-int	get_len(char *str)
+int		get_len(char *str)
 {
 	int i;
 
