@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 20:27:56 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/09/29 19:14:52 by jpeyron          ###   ########.fr       */
+/*   Updated: 2020/09/29 19:25:59 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	*resolve_map(char *file)
 {
 	t_map		*map;
 	t_square	sq;
+	int			obs_x;
 
 	map = get_map(file);
 	if (map_error(map->tab))
@@ -24,7 +25,7 @@ char	*resolve_map(char *file)
 	sq = create_square(0, 0, 0);
 	while (sq.min_y + sq.len <= map.height + 1)
 	{
-		if (!has_obstacle(sq, map))
+		if (!(obs_x = has_obstacle(sq, map)))
 		{
 			while (!has_obstacle_wall(sq, map))
 			{
@@ -33,8 +34,10 @@ char	*resolve_map(char *file)
 			reassign_square(map, &sq, sq.min_x + sq.len + 1);
 		}
 		else
-			sq.len++;
+			reassign_square(map, &sq, obs_x + 1);
 	}
+	draw_square(sq, &map);
+	return (map->tab);
 }
 
 int	main(int ac, char **av)
