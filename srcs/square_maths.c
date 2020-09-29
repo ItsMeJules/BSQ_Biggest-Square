@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 15:10:50 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/09/29 18:41:45 by jpeyron          ###   ########.fr       */
+/*   Updated: 2020/09/29 19:09:22 by rblondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,16 @@ int			has_obstacle_wall(t_square, t_map map)
 	y = sq.len;
 	while (--x)
 	{
-		if (map.tab[(sq.min_y + y) * (map.length + 1) + (sq.min_x + x)]
-				== map.obs && square_wall_contains(sq, x, y))
+		if (map.tab[(sq.min_y + y) * (map.length + 1) + (sq.min_x + x + 1)]
+				== map.obs && square_wall_contains(sq, x + 1, y))
 			return (1);
 	}
 	x = sq.len;
 	y += 1;
 	while (--y)
 	{
-		if (map.tab[(sq.min_y + y) * (map.length + 1) + (sq.min_x + x)]
-				== map.obs && square_wall_contains(sq, x, y))
+		if (map.tab[(sq.min_y + y + 1) * (map.length + 1) + (sq.min_x + x)]
+				== map.obs && square_wall_contains(sq, x, y + 1))
 			return (1);
 	}
 	return (0);
