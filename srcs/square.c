@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 16:48:57 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/09/28 19:42:08 by jpeyron          ###   ########.fr       */
+/*   Updated: 2020/09/29 11:13:52 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,24 @@ void		expand_square(t_square *sq, int len)
 	sq->x += len;
 	sq->y += len;
 	sq->len += len;
+}
+
+void		draw_square(t_square sq, t_map map) 
+{
+	int	x;
+	int	y;
+
+	y = sq.len;
+	while (sq.minY + y >= sq.minY)
+	{
+		x = sq.len;
+		while (sq.minX + x >= sq.minX)
+		{
+			map.tab[x][y] = map.obs;
+			x--;
+		}
+		y--;
+	}
 }
 
 t_square	create_square(int x, int y, int len)
