@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 16:48:57 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/09/29 16:12:23 by jpeyron          ###   ########.fr       */
+/*   Updated: 2020/09/29 16:39:14 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,30 +18,30 @@ void		draw_square(t_square sq, t_map *map)
 	int	x;
 	int	y;
 
-	y = sq.len;
-	while (sq.minY + y >= sq.minY)
+	y = sq.min_y;
+	while (y >= sq.min_y + sq.len)
 	{
-		x = sq.len;
-		while (sq.minX + x >= sq.minX)
+		x = sq.min_x;
+		while (x >= sq.min_x + sq.len)
 		{
 			map->tab[x][y] = map->sq;
-			x--;
+			x++;
 		}
-		y--;
+		y++;
 	}
 }
 
-int			reassign_square(t_map map, t_square *sq, int obsX)
+int			reassign_square(t_map map, t_square *sq, int obs_x)
 {
-	if (map.height < sq->minY + sq->len)
+	if (map.height < sq->min_y + sq->len)
 		return (0);
-	if (map.length < sq->minX + sq->len)
+	if (map.length < sq->min_x + sq->len)
 	{
-		sq->minX = 0;
-		sq->minY++;
+		sq->min_x = 0;
+		sq->min_y++;
 	}
 	else
-		sq->minX = obsX + 1;
+		sq->min_x = obs_x + 1;
 	return (1);
 }
 
@@ -51,8 +51,8 @@ t_square	create_square(int x, int y, int len)
 
 	if (!(sq = malloc(sizeof(t_square))))
 		return (NULL);
-	sq.minX = x;
-	sq.minY = y;
+	sq.min_x = x;
+	sq.min_y = y;
 	sq.len = len;
 	return (sq);
 }

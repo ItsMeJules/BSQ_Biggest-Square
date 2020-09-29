@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 16:44:44 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/09/29 16:14:03 by jpeyron          ###   ########.fr       */
+/*   Updated: 2020/09/29 17:02:20 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 int			has_obstacle(t_square sq, t_map map);
 int			square_contains(t_square sq, int x, int y);
 int			square_walls_contains(t_square sq, int x, int y);
-void		expand_square(t_square *sq, int len);
+void		expand_square(t_square *sq);
 
 /*square basics*/
 void		draw_square(t_square sq, t_map **map);
@@ -26,8 +26,8 @@ t_square	create_square(int x, int y, int len);
 
 typedef struct	s_square
 {
-	int	minX;
-	int	minY;
+	int	min_x;
+	int	min_y;
 	int	len;
 }				t_square;
 
