@@ -6,38 +6,12 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 16:48:57 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/09/29 12:01:28 by jpeyron          ###   ########.fr       */
+/*   Updated: 2020/09/29 16:12:23 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "square.h"
 #include "map.h"
-
-int			square_contains(t_square sq, int x, int y)
-{
-	return ((sq.minX + sq.len) >= x && (sq.minY + sq.len) >= y);
-}
-
-int			has_obstacle(t_square sq, t_map map)
-{
-	int		i;
-
-	i = sq.len + 1;
-	while (--i)
-	{
-		if (map.tab[sq.minX + i][sq.minY + i] == map.obs &&
-				square_contains(sq, sq.minX + i, sq.minY + i))
-			return (1);
-	}
-	return (0);
-}
-
-void		expand_square(t_square *sq, int len)
-{
-	sq->x += len;
-	sq->y += len;
-	sq->len += len;
-}
 
 void		draw_square(t_square sq, t_map *map) 
 {
@@ -50,11 +24,25 @@ void		draw_square(t_square sq, t_map *map)
 		x = sq.len;
 		while (sq.minX + x >= sq.minX)
 		{
-			map->tab[x][y] = map->obs;
+			map->tab[x][y] = map->sq;
 			x--;
 		}
 		y--;
 	}
+}
+
+int			reassign_square(t_map map, t_square *sq, int obsX)
+{
+	if (map.height < sq->minY + sq->len)
+		return (0);
+	if (map.length < sq->minX + sq->len)
+	{
+		sq->minX = 0;
+		sq->minY++;
+	}
+	else
+		sq->minX = obsX + 1;
+	return (1);
 }
 
 t_square	create_square(int x, int y, int len)
