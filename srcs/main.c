@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 20:27:56 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/09/29 19:03:52 by jpeyron          ###   ########.fr       */
+/*   Updated: 2020/09/29 19:14:52 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char	*resolve_map(char *file)
 			{
 				sq.len++;
 			}
+			reassign_square(map, &sq, sq.min_x + sq.len + 1);
 		}
 		else
 			sq.len++;
