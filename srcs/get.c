@@ -6,7 +6,7 @@
 /*   By: rblondel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 14:18:19 by rblondel          #+#    #+#             */
-/*   Updated: 2020/09/29 17:22:11 by jpeyron          ###   ########.fr       */
+/*   Updated: 2020/09/29 17:54:33 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*map_to_str(char *filename, int sizeof_file)
 	return (str);
 }
 
-t_map	*ft_get(char *file_path)
+t_map	*get_map(char *file_path)
 {
 	t_map	*map;
 	char	*tab_str;

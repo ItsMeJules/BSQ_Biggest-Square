@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 16:48:57 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/09/29 17:23:22 by jpeyron          ###   ########.fr       */
+/*   Updated: 2020/09/29 18:38:24 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void		draw_square(t_square sq, t_map *map)
 		x = sq.min_x;
 		while (x >= sq.min_x + sq.len)
 		{
-			map->tab[x][y] = map->sq;
+			map->tab[(sq.min_y + y) * (map.length + 1) + (sq.min_x + x)]
+				= map->sq;
 			x++;
 		}
 		y++;
@@ -35,7 +36,7 @@ int			reassign_square(t_map map, t_square *sq, int obs_x)
 {
 	if (map.height < sq->min_y + sq->len)
 		return (0);
-	if (map.length < sq->min_x + sq->len)
+	if (map.length <= sq->min_x + sq->len)
 	{
 		sq->min_x = 0;
 		sq->min_y++;
