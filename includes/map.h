@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 19:25:34 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/09/28 19:43:07 by jpeyron          ###   ########.fr       */
+/*   Updated: 2020/09/29 12:25:22 by rblondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 typedef struct	s_map
 {
 	char	**tab;
+	int		height;
+	int		length;
+	char	blank;
 	char	obs;
 	char	sq;
 }				t_map;
