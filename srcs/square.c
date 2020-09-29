@@ -6,29 +6,29 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 16:48:57 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/09/29 19:15:10 by rblondel         ###   ########.fr       */
+/*   Updated: 2020/09/29 20:02:26 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "square.h"
 #include "map.h"
 
-void		draw_square(t_square sq, t_map *map)
+void		draw_square(t_square sq, t_map **map)
 {
 	int	x;
 	int	y;
 
-	y = sq.min_y;
-	while (y >= sq.min_y + sq.len)
+	y = sq.min_y + sq.len;
+	while (y >= sq.min_y)
 	{
-		x = sq.min_x;
-		while (x >= sq.min_x + sq.len)
+		x = sq.min_x + sq.len;
+		while (x >= sq.min_x)
 		{
-			map->tab[(sq.min_y + y) * (map.length + 1) + (sq.min_x + x)]
-				= map->sq;
-			x++;
+			(*map)->tab[y * ((*map)->length + 1) + x] = (*map)->sq;
+			x--;
 		}
-		y++;
+		y--;
 	}
 }
 
@@ -46,14 +46,14 @@ int			reassign_square(t_map map, t_square *sq, int obs_x)
 	return (1);
 }
 
-t_square	create_square(int x, int y, int len)
+t_square	*create_square(int x, int y, int len)
 {
-	t_square	sq;
+	t_square	*sq;
 
 	if (!(sq = malloc(sizeof(t_square))))
 		return (NULL);
-	sq.min_x = x;
-	sq.min_y = y;
-	sq.len = len;
+	sq->min_x = x;
+	sq->min_y = y;
+	sq->len = len;
 	return (sq);
 }
