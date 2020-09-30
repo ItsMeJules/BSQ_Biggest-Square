@@ -6,7 +6,7 @@
 /*   By: rblondel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 15:58:31 by rblondel          #+#    #+#             */
-/*   Updated: 2020/09/30 18:36:26 by rblondel         ###   ########.fr       */
+/*   Updated: 2020/09/30 22:11:09 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ int		map_error(t_map map);
 int		check_len(char *str, int len);
 int		check_char(char *str, char blk, char obs, char sq);
 int		check_line(char *str);
+void	free_map(t_map *map);
 
 #endif

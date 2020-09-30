@@ -6,10 +6,11 @@
 /*   By: rblondel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 14:18:19 by rblondel          #+#    #+#             */
-/*   Updated: 2020/09/30 18:12:22 by rblondel         ###   ########.fr       */
+/*   Updated: 2020/09/30 22:22:07 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "map_parser.h"
 #include "map.h"
 
@@ -71,4 +72,10 @@ t_map	*get_map(char *file_path)
 	map->tab = tab_str + i;
 	map->length = get_len(map->tab);
 	return (map);
+}
+
+void	free_map(t_map *map)
+{
+	//free(map->tab);
+	free(map);
 }
