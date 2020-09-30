@@ -6,7 +6,7 @@
 /*   By: rblondel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 15:58:31 by rblondel          #+#    #+#             */
-/*   Updated: 2020/09/29 17:31:12 by jpeyron          ###   ########.fr       */
+/*   Updated: 2020/09/30 16:31:57 by rblondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 int		count_size(char *filename);
 char	*map_to_str(char *filename, int sizeof_file);
-t_map	*ft_get(char *file_path);
+t_map	*get_map(char *file_path);
 int		get_nbr_line(char *str);
 char	get_blank(char *str);
 char	get_obs(char *str);
