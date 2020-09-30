@@ -6,7 +6,7 @@
 /*   By: rblondel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:16:49 by rblondel          #+#    #+#             */
-/*   Updated: 2020/09/30 18:57:49 by rblondel         ###   ########.fr       */
+/*   Updated: 2020/09/30 21:23:22 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	check_line(char *str)
 		i++;
 	line_len = i;
 	i = 0;
-	whilei (str[i])
+	while (str[i])
 	{
 		y = 0;
 		while (str[i] != '\n')

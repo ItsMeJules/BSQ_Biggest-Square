@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 20:27:56 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/09/30 21:21:55 by jpeyron          ###   ########.fr       */
+/*   Updated: 2020/09/30 21:23:11 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	resolve_map(t_map *map, t_square sq)
 int		main(int ac, char **av)
 {
 	int 		i;
-	t_map		*mapt git ;
+	t_map		*map;
 	t_square	sq;
 
 	i = 1;
