@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 20:27:56 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/09/30 21:23:11 by jpeyron          ###   ########.fr       */
+/*   Updated: 2020/09/30 21:29:29 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,19 @@ int		main(int ac, char **av)
 	t_map		*map;
 	t_square	sq;
 
-	i = 1;
-	while (i < ac)
+	i = 0;
+	while (++i < ac)
 	{
 		map = get_map(av[i]);
 		if (!map_error(*map))
+		{
 			write(1, "map error\n", 10);
+			continue;
+		}
 		sq = *create_square(0, 0, 0);
 		resolve_map(map, sq);
 		write(1, map->tab, map->height * (map->length + 1));
 		write(1, "\n", 1);
-		i++;
 	}
 	return (0);
 }
