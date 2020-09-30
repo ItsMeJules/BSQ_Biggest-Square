@@ -6,14 +6,12 @@
 /*   By: rblondel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 14:18:19 by rblondel          #+#    #+#             */
-/*   Updated: 2020/09/30 14:55:07 by rblondel         ###   ########.fr       */
+/*   Updated: 2020/09/30 17:59:20 by rblondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/get_map.h"
-#include "../includes/map.h"
-
-#include "stdio.h"
+#include "get_map.h"
+#include "map.h"
 
 int		count_size(char *filename)
 {

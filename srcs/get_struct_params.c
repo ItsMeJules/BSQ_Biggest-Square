@@ -6,12 +6,12 @@
 /*   By: rblondel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 15:27:45 by rblondel          #+#    #+#             */
-/*   Updated: 2020/09/30 11:29:40 by rblondel         ###   ########.fr       */
+/*   Updated: 2020/09/30 17:59:34 by rblondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/get_map.h"
-#include "../includes/map.h"
+#include "get_map.h"
+#include "map.h"
 
 int		get_nbr_line(char *str)
 {
