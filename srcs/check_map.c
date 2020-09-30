@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/*************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
@@ -6,14 +6,12 @@
 /*   By: rblondel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:16:49 by rblondel          #+#    #+#             */
-/*   Updated: 2020/09/30 18:49:12 by jpeyron          ###   ########.fr       */
+/*   Updated: 2020/09/30 18:53:36 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map_parser.h"
 #include "map.h"
-
-#include <stdio.>
 
 int	check_line(char *str)
 {
@@ -66,12 +64,20 @@ int	check_char(char *str, char blk, char obs, char sq)
 	return (1);
 }
 
-int main(int ac, char **av)
+int check_len(char *str, int len)
 {
-	t_map	*map;
-	map = get_map(av[1]);
-	printf("%s", map->tab);
-	printf("%i\n", check_line(map->tab));
-	printf("%i\n", check_char(map->tab, map->blank, map->obs, map->sq));
-	return (0);
+	int i;
+	int y;
+
+	i = 0;
+	y = 0;
+	while (str[i])
+	{
+		if (str[i] == '\n')
+			y++;
+		i++;
+	}
+	if (y != len)
+		return (0);
+	return (1);
 }

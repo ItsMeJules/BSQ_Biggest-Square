@@ -6,13 +6,12 @@
 /*   By: rblondel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 14:18:19 by rblondel          #+#    #+#             */
-/*   Updated: 2020/09/30 17:23:35 by jpeyron          ###   ########.fr       */
+/*   Updated: 2020/09/30 18:12:22 by rblondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map_parser.h"
 #include "map.h"
-#include "stdio.h"
 
 int		count_size(char *filename)
 {
