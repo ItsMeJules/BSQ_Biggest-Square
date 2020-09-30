@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 15:10:50 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/09/30 16:57:15 by jpeyron          ###   ########.fr       */
+/*   Updated: 2020/09/30 18:50:15 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,6 @@ int			square_contains(t_square sq, int x, int y)
 
 int			square_walls_contains(t_square sq, int os, int x, int y)
 {
-	return x == sq.min_x || x == (sq.min_x + sq.len + os)
-		|| y == sq.min_y || y == (sq.min_y + sq.len + os);
+	return (x == sq.min_x || x == (sq.min_x + sq.len + os) ||
+			y == sq.min_y || y == (sq.min_y + sq.len + os));
 }
