@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_map.h                                          :+:      :+:    :+:   */
+/*   map_parser.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 15:58:31 by rblondel          #+#    #+#             */
-/*   Updated: 2020/09/30 16:31:57 by rblondel         ###   ########.fr       */
+/*   Updated: 2020/09/30 17:24:17 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_MAP_H
-# define GET_MAP_H
+#ifndef MAP_PARSER_H
+# define MAP_PARSER_H
 
 # include <sys/uio.h>
 # include <sys/types.h>

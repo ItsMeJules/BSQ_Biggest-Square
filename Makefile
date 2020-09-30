@@ -1,16 +1,19 @@
-NAME		=	bsq
+NAME		=	BSQ
 CC			=	gcc
 CFLAGS		=	-Wall -Werror -Wextra
 IFLAGS		=	-I$(INC_PATH)
 RM			=	rm -rf
 INC_PATH	=	includes
-INC_NAME	=	math_utils.h \
+INC_NAME	=	map.h \
+				map_parser.h \
 				square.h
 
 SRC_PATH	=	srcs
 SRC_NAME	=	main.c \
+				map_parser.c \
 				square.c \
-				math_utils.c
+				square_maths.c \
+				struct_assigner.c \
 
 INC			=	$(addprefix $(INC_PATH)/, $(INC_NAME))
 SRC			=	$(addprefix $(SRC_PATH)/, $(SRC_NAME))
@@ -33,4 +36,4 @@ fclean		:	clean
 
 re			: 	fclean all
 
-.PHONY: 		all fclean clean re
+PHONY: 		all fclean clean re
