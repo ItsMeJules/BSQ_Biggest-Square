@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 20:27:56 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/09/30 22:03:16 by jpeyron          ###   ########.fr       */
+/*   Updated: 2020/09/30 23:01:50 by rblondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,21 @@ void	resolve_map(t_map *map, t_square sq)
 	draw_square(sq, &map);
 }
 
+void	resolve_one_one(t_map *map)
+{
+	write(1, (map->tab[0] == map->blank) ? &map->blank : &map->obs, 1);
+	/*if(map->tab[0] == map->blank)
+	{
+		write(1, &map->sq, 1);
+		write(1, "\n", 1);
+	}
+	else
+	{
+		write(1, &map->obs, 1);*/
+		write(1, "\n", 1);
+	//}
+}
+
 void	resolve_one_line(t_map *map)
 {
 	int	i;
@@ -51,6 +66,8 @@ void	resolve_one_line(t_map *map)
 		i++;
 	map->tab[i] = map->sq;
 }
+
+#include <stdio.h>
 
 int		main(int ac, char **av)
 {
@@ -66,11 +83,17 @@ int		main(int ac, char **av)
 			write(1, "map error\n", 10);
 			continue;
 		}
+		printf("%i, %i", map->height, map->length);
+		if (map->height == 1 && map->length == 1)
+		{
+			resolve_one_one(map);
+			continue;
+		}
 		if (map->height == 1 || map->length == 1)
 			resolve_one_line(map);
 		else
 			resolve_map(map, *create_square(0, 0, 0));
-
+		write(1, "oui\n", 4);
 		write(1, map->tab, map->height * (map->length + 1));
 		write(1, "\n", 1);
 	}

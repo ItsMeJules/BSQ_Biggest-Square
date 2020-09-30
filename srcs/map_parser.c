@@ -6,7 +6,7 @@
 /*   By: rblondel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 14:18:19 by rblondel          #+#    #+#             */
-/*   Updated: 2020/09/30 18:12:22 by rblondel         ###   ########.fr       */
+/*   Updated: 2020/09/30 23:01:47 by rblondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,25 @@ int		count_size(char *filename)
 	close(fd);
 	return (count);
 }
-
+#include <stdio.h>
 char	*map_to_str(char *filename, int sizeof_file)
 {
 	int		fd;
 	char	*str;
+	int i = 0;
 
 	fd = open(filename, O_RDONLY);
 	if (!(str = malloc(sizeof(char) * sizeof_file + 1)))
 		return (0);
 	read(fd, str, sizeof_file);
 	close(fd);
-	str[sizeof_file + 1] = 0;
+	str[sizeof_file] = 0;
+	printf("sizeoffile=%d\n", sizeof_file + 1);
+	while (str[i])
+	{
+		printf("str[%d] = %d | %c\n", i, str[i], str[i]);
+		i++;
+	}
 	return (str);
 }
 

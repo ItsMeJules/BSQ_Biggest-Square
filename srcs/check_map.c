@@ -6,7 +6,7 @@
 /*   By: rblondel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:16:49 by rblondel          #+#    #+#             */
-/*   Updated: 2020/09/30 21:23:22 by jpeyron          ###   ########.fr       */
+/*   Updated: 2020/09/30 22:41:38 by rblondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ int	check_line(char *str)
 			return (0);
 		i++;
 	}
+	write(1, "test3\n", 6);
 	return (1);
 }
-
+#include <stdio.h>
 int	check_char(char *str, char blk, char obs, char sq)
 {
 	int i;
@@ -53,14 +54,19 @@ int	check_char(char *str, char blk, char obs, char sq)
 		return (0);
 	while (str[i])
 	{
+	write(1, "test2\n", 6);
 		while (str[i] != '\n')
 		{
+	write(1, "test6\n", 6);
+	printf("%d,%i\n", str[i], i);
+	printf("%c", str[1]);
 			if (str[i] != blk && str[i] != obs)
 				return (0);
 			i++;
 		}
 		i++;
 	}
+	write(1, "test4\n", 6);
 	return (1);
 }
 
@@ -79,6 +85,7 @@ int check_len(char *str, int height)
 	}
 	if (y != height)
 		return (0);
+	write(1, "test3\n", 6);
 	return (1);
 }
 
