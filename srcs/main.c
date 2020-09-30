@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 20:27:56 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/09/30 18:57:22 by rblondel         ###   ########.fr       */
+/*   Updated: 2020/09/30 21:21:55 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,12 @@
 #include "square.h"
 #include "map.h"
 
-void	putstr(char *str)
+void	resolve_map(t_map *map, t_square sq)
 {
-	int i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	write(1, str, i);
-}
-
-char	*resolve_map(char *file)
-{
-	t_map		*map;
-	t_square	sq;
 	int			obs_x;
 	int			found_x;
 	int			found_y;
 
-	map = get_map(file);
-	if (!map_error(*map))
-		return ("map error\n");
-	sq = *create_square(0, 0, 0);
 	while (sq.min_y + sq.len < map->height)
 	{
 		if ((obs_x = has_obstacle(sq, *map)) == -1)
@@ -56,17 +40,23 @@ char	*resolve_map(char *file)
 	sq.min_x = found_x;
 	sq.min_y = found_y;
 	draw_square(sq, &map);
-	return (map->tab);
 }
 
 int		main(int ac, char **av)
 {
-	int i;
+	int 		i;
+	t_map		*mapt git ;
+	t_square	sq;
 
 	i = 1;
 	while (i < ac)
 	{
-		putstr(resolve_map(av[i]));
+		map = get_map(av[i]);
+		if (!map_error(*map))
+			write(1, "map error\n", 10);
+		sq = *create_square(0, 0, 0);
+		resolve_map(map, sq);
+		write(1, map->tab, map->height * (map->length + 1));
 		write(1, "\n", 1);
 		i++;
 	}
