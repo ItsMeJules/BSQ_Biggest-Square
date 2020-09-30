@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 20:27:56 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/09/30 21:29:29 by jpeyron          ###   ########.fr       */
+/*   Updated: 2020/09/30 22:03:16 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,20 @@ void	resolve_map(t_map *map, t_square sq)
 	draw_square(sq, &map);
 }
 
+void	resolve_one_line(t_map *map)
+{
+	int	i;
+
+	i = 0;
+	while (map->tab[i] != map->blank)
+		i++;
+	map->tab[i] = map->sq;
+}
+
 int		main(int ac, char **av)
 {
 	int 		i;
 	t_map		*map;
-	t_square	sq;
 
 	i = 0;
 	while (++i < ac)
@@ -57,8 +66,11 @@ int		main(int ac, char **av)
 			write(1, "map error\n", 10);
 			continue;
 		}
-		sq = *create_square(0, 0, 0);
-		resolve_map(map, sq);
+		if (map->height == 1 || map->length == 1)
+			resolve_one_line(map);
+		else
+			resolve_map(map, *create_square(0, 0, 0));
+
 		write(1, map->tab, map->height * (map->length + 1));
 		write(1, "\n", 1);
 	}
