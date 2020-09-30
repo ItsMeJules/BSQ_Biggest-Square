@@ -1,4 +1,4 @@
-NAME		=	bsq
+NAME		=	BSQ
 CC			=	gcc
 CFLAGS		=	-Wall -Werror -Wextra
 IFLAGS		=	-I$(INC_PATH)
@@ -36,4 +36,4 @@ fclean		:	clean
 
 re			: 	fclean all
 
-.PHONY: 		all fclean clean re
+PHONY: 		all fclean clean re

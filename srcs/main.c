@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 20:27:56 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/09/29 20:04:36 by jpeyron          ###   ########.fr       */
+/*   Updated: 2020/09/30 17:01:43 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,24 +29,33 @@ char	*resolve_map(char *file)
 	t_map		*map;
 	t_square	sq;
 	int			obs_x;
+	int			obs_r;
+	int			found_x;
+	int			found_y;
 
 	map = get_map(file);
 //	if (map_error(map->tab))
 //		return ("map error\n");
 	sq = *create_square(0, 0, 0);
-	while (sq.min_y + sq.len <= map->height + 1)
+	while (sq.min_y + sq.len < map->height )
 	{
-		if (!(obs_x = has_obstacle(sq, *map)))
+		if ((obs_x = has_obstacle(sq, *map)) == -1)
 		{
-			while (!has_obstacle_wall(sq, *map))
+			while ((obs_r = has_obstacle_wall(sq, *map)) == -1 &&
+					sq.len + 1 < map->length)
 			{
+				found_x = sq.min_x;
+				found_y = sq.min_y;
 				sq.len++;
 			}
-			reassign_square(*map, &sq, sq.min_x + sq.len + 1);
+			if (obs_r != -1)
+				reassign_square(*map, &sq, obs_r);
 		}
 		else
-			reassign_square(*map, &sq, obs_x + 1);
+			reassign_square(*map, &sq, obs_x);
 	}
+	sq.min_x = found_x;
+	sq.min_y = found_y;
 	draw_square(sq, &map);
 	return (map->tab);
 }
