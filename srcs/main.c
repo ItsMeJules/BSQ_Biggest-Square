@@ -6,10 +6,11 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 20:27:56 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/09/30 23:01:50 by rblondel         ###   ########.fr       */
+/*   Updated: 2020/10/01 00:07:51 by rblondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "map_parser.h"
 #include "square.h"
 #include "map.h"
@@ -19,7 +20,9 @@ void	resolve_map(t_map *map, t_square sq)
 	int			obs_x;
 	int			found_x;
 	int			found_y;
-
+	
+	found_x = -1;
+	found_y = -1;	
 	while (sq.min_y + sq.len < map->height)
 	{
 		if ((obs_x = has_obstacle(sq, *map)) == -1)
@@ -42,19 +45,15 @@ void	resolve_map(t_map *map, t_square sq)
 	draw_square(sq, &map);
 }
 
-void	resolve_one_one(t_map *map)
+int		resolve_one_one(t_map *map)
 {
-	write(1, (map->tab[0] == map->blank) ? &map->blank : &map->obs, 1);
-	/*if(map->tab[0] == map->blank)
+	if (map->height == 1 && map->length == 1)
 	{
-		write(1, &map->sq, 1);
+		write(1, (map->tab[0] == map->blank) ? &map->blank : &map->obs, 1);
 		write(1, "\n", 1);
+		return (1);
 	}
-	else
-	{
-		write(1, &map->obs, 1);*/
-		write(1, "\n", 1);
-	//}
+	return (0);
 }
 
 void	resolve_one_line(t_map *map)
@@ -67,35 +66,32 @@ void	resolve_one_line(t_map *map)
 	map->tab[i] = map->sq;
 }
 
-#include <stdio.h>
 
 int		main(int ac, char **av)
 {
 	int 		i;
 	t_map		*map;
+	t_square	*sq;
 
 	i = 0;
-	while (++i < ac)
+	while (++i < ac || ac == 1)
 	{
-		map = get_map(av[i]);
+		map = get_map(ac == 1 ? NULL : av[i]);
 		if (!map_error(*map))
 		{
-			write(1, "map error\n", 10);
+			write(2, "map error\n", 10);
 			continue;
 		}
-		printf("%i, %i", map->height, map->length);
-		if (map->height == 1 && map->length == 1)
-		{
-			resolve_one_one(map);
+		if (resolve_one_one(map))
 			continue;
-		}
 		if (map->height == 1 || map->length == 1)
 			resolve_one_line(map);
 		else
-			resolve_map(map, *create_square(0, 0, 0));
-		write(1, "oui\n", 4);
+			resolve_map(map, *(sq = create_square(0, 0, 0)));
 		write(1, map->tab, map->height * (map->length + 1));
 		write(1, "\n", 1);
 	}
+	free(sq);
+	free(map);
 	return (0);
 }

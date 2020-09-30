@@ -6,7 +6,7 @@
 /*   By: rblondel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 15:27:45 by rblondel          #+#    #+#             */
-/*   Updated: 2020/09/30 23:01:43 by rblondel         ###   ########.fr       */
+/*   Updated: 2020/09/30 23:15:26 by rblondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,12 @@ char	get_sq(char *str)
 	return (str[i + 2]);
 }
 
-#include <stdio.h>
-
 int		get_len(char *str)
 {
 	int i;
 
 	i = 0;
-	while (*str != '\n')
-		str++;
-	str++;
 	while (str[i] != '\n')
 		i++;
-	printf("%i", i);
 	return (i);
 }
