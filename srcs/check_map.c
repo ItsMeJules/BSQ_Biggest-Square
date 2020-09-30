@@ -6,11 +6,11 @@
 /*   By: rblondel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:16:49 by rblondel          #+#    #+#             */
-/*   Updated: 2020/09/30 17:59:04 by rblondel         ###   ########.fr       */
+/*   Updated: 2020/09/30 18:54:10 by rblondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_map.h"
+#include "map_parser.h"
 #include "map.h"
 
 int check_line(char *str)
@@ -64,7 +64,7 @@ int check_char(char *str, char blk, char obs, char sq)
 	return (1);
 }
 
-int check_len(char *str, int len)
+int check_len(char *str, int height)
 {
 	int i;
 	int y;
@@ -77,7 +77,16 @@ int check_len(char *str, int len)
 			y++;
 		i++;
 	}
-	if (y != len)
+	if (y != height)
 		return (0);
 	return (1);
+}
+
+int	map_error(t_map map)
+{
+	if (check_len(map.tab, map.height)
+		&& check_char(map.tab, map.blank, map.obs, map.sq)
+			&& check_line(map.tab))
+		return (1);
+	return (0);
 }

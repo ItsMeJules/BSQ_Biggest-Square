@@ -14,6 +14,7 @@ SRC_NAME	=	main.c \
 				square.c \
 				square_maths.c \
 				struct_assigner.c \
+				check_map.c \
 
 INC			=	$(addprefix $(INC_PATH)/, $(INC_NAME))
 SRC			=	$(addprefix $(SRC_PATH)/, $(SRC_NAME))

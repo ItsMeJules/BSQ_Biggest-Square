@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 20:27:56 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/09/30 17:01:43 by jpeyron          ###   ########.fr       */
+/*   Updated: 2020/09/30 18:40:07 by rblondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ char	*resolve_map(char *file)
 	int			found_y;
 
 	map = get_map(file);
-//	if (map_error(map->tab))
-//		return ("map error\n");
+	if (!map_error(*map))
+		return ("map error\n");
 	sq = *create_square(0, 0, 0);
 	while (sq.min_y + sq.len < map->height )
 	{
