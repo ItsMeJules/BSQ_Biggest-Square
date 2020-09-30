@@ -6,7 +6,7 @@
 /*   By: rblondel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 14:18:19 by rblondel          #+#    #+#             */
-/*   Updated: 2020/09/30 18:12:22 by rblondel         ###   ########.fr       */
+/*   Updated: 2020/09/30 19:13:55 by rblondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*map_to_str(char *filename, int sizeof_file)
 	fd = open(filename, O_RDONLY);
 	if (!(str = malloc(sizeof(char) * sizeof_file + 1)))
 		return (0);
-	read(fd, str, sizeof_file);
+	//read(fd, str, sizeof_file);
 	close(fd);
 	str[sizeof_file + 1] = 0;
 	return (str);

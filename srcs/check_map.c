@@ -1,19 +1,19 @@
-/*************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/30 11:16:49 by rblondel          #+#    #+#             */
-/*   Updated: 2020/09/30 18:57:49 by rblondel         ###   ########.fr       */
+/*   Created: 2020/09/30 19:00:29 by rblondel          #+#    #+#             */
+/*   Updated: 2020/09/30 19:01:50 by rblondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map_parser.h"
 #include "map.h"
 
-int	check_line(char *str)
+int		check_line(char *str)
 {
 	int i;
 	int y;
@@ -27,7 +27,7 @@ int	check_line(char *str)
 		i++;
 	line_len = i;
 	i = 0;
-	whilei (str[i])
+	while (str[i])
 	{
 		y = 0;
 		while (str[i] != '\n')
@@ -42,7 +42,7 @@ int	check_line(char *str)
 	return (1);
 }
 
-int	check_char(char *str, char blk, char obs, char sq)
+int		check_char(char *str, char blk, char obs, char sq)
 {
 	int i;
 
@@ -64,7 +64,7 @@ int	check_char(char *str, char blk, char obs, char sq)
 	return (1);
 }
 
-int check_len(char *str, int height)
+int		check_len(char *str, int height)
 {
 	int i;
 	int y;
@@ -82,7 +82,7 @@ int check_len(char *str, int height)
 	return (1);
 }
 
-int	map_error(t_map map)
+int		map_error(t_map map)
 {
 	if (check_len(map.tab, map.height)
 		&& check_char(map.tab, map.blank, map.obs, map.sq)

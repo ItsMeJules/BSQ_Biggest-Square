@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 20:27:56 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/09/30 18:57:22 by rblondel         ###   ########.fr       */
+/*   Updated: 2020/09/30 19:07:58 by rblondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,12 @@ void	putstr(char *str)
 	write(1, str, i);
 }
 
-char	*resolve_map(char *file)
+char	*resolve_map(t_map *map, t_square sq)
 {
-	t_map		*map;
-	t_square	sq;
 	int			obs_x;
 	int			found_x;
 	int			found_y;
 
-	map = get_map(file);
-	if (!map_error(*map))
-		return ("map error\n");
-	sq = *create_square(0, 0, 0);
 	while (sq.min_y + sq.len < map->height)
 	{
 		if ((obs_x = has_obstacle(sq, *map)) == -1)
@@ -61,14 +55,22 @@ char	*resolve_map(char *file)
 
 int		main(int ac, char **av)
 {
-	int i;
+	int			i;
+	t_map		*map;
+	t_square	sq;
 
-	i = 1;
-	while (i < ac)
+	i = 0;
+	while (++i < ac)
 	{
-		putstr(resolve_map(av[i]));
+		map = get_map(av[i]);
+		if (!map_error(*map))
+		{
+			putstr("map error\n");
+			continue;
+		}
+		sq = *create_square(0, 0, 0);
+		putstr(resolve_map(map, sq));
 		write(1, "\n", 1);
-		i++;
 	}
 	return (0);
 }
