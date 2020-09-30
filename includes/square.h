@@ -6,14 +6,14 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 16:44:44 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/09/30 14:47:07 by jpeyron          ###   ########.fr       */
+/*   Updated: 2020/09/30 18:45:22 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SQUARE_H
 # define SQUARE_H
 
-#include "map.h"
+# include "map.h"
 
 typedef struct	s_square
 {

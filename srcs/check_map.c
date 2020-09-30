@@ -6,16 +6,16 @@
 /*   By: rblondel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:16:49 by rblondel          #+#    #+#             */
-/*   Updated: 2020/09/30 16:33:19 by rblondel         ###   ########.fr       */
+/*   Updated: 2020/09/30 18:49:12 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/get_map.h"
-#include "../includes/map.h"
+#include "map_parser.h"
+#include "map.h"
 
 #include <stdio.>
 
-int check_line(char *str)
+int	check_line(char *str)
 {
 	int i;
 	int y;
@@ -25,11 +25,11 @@ int check_line(char *str)
 	y = 0;
 	if (!str[i])
 		return (0);
-	while(str[i] != '\n')
+	while (str[i] != '\n')
 		i++;
 	line_len = i;
 	i = 0;
-	while(str[i])
+	whilei (str[i])
 	{
 		y = 0;
 		while (str[i] != '\n')
@@ -44,7 +44,7 @@ int check_line(char *str)
 	return (1);
 }
 
-int check_char(char *str, char blk, char obs, char sq)
+int	check_char(char *str, char blk, char obs, char sq)
 {
 	int i;
 
