@@ -77,6 +77,7 @@ int		main(int ac, char **av)
 	while (++i < ac || ac == 1)
 	{
 		map = get_map(ac == 1 ? NULL : av[i]);
+		ac = 0;
 		if (!map_error(*map))
 		{
 			write(2, "map error\n", 10);

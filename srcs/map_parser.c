@@ -6,7 +6,7 @@
 /*   By: rblondel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 14:18:19 by rblondel          #+#    #+#             */
-/*   Updated: 2020/10/01 00:38:13 by rblondel         ###   ########.fr       */
+/*   Updated: 2020/10/01 10:49:25 by rblondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int		count_size(char *filename)
 		return (0);
 	while ((bytes = read(fd, buf, BUF_SIZE)))
 	{
-		write(1, buf, bytes);
 		if (bytes < 0)
 		{
 			close(fd);
@@ -71,12 +70,54 @@ char	*map_to_str(char *filename, int sizeof_file)
 	i = read(fd, str, sizeof_file);
 	close(fd);
 	str[sizeof_file] = 0;
-	ft_putnbr(sizeof_file);
-	ft_putnbr(i);
-	write(1, &str[8], 1);
-	write(1, "tit", 3);
-	ft_putnbr(len(str));
-	write(1, str, sizeof_file);
+	return (str);
+}
+
+char *str_con_cat(char *str, int length, char *buf)
+{
+	char *temp;
+	int i;
+	int y;
+	
+	i = 0;
+	y = 0;
+	if(!(temp = malloc(sizeof(char) * (length + 1))))
+		return (NULL);
+	while (i < length)
+	{
+		if (i < len(str))
+			temp[i] = str[i];
+		else
+		{
+			temp[i] = buf[y];
+			y++;
+		}
+		i++;
+	}
+	temp[i] = 0;
+	return (temp);
+}
+
+char	*read_stdin(void)
+{
+	int 	bytes;
+	char	*str;
+	char 	*temp;
+	char buf[BUF_SIZE + 1];
+	int i;
+
+	str = NULL;
+	str = malloc(sizeof(char));
+	str[0] = 0;
+	while ((bytes = read(0, buf, BUF_SIZE)))
+	{
+		i = 0;
+		temp = malloc(sizeof(char) * (bytes + len(str) + 1));
+		temp = str_con_cat(str, bytes + len(str), buf);
+		free(str);
+		str = temp;
+		temp = NULL;
+	}
 	return (str);
 }
 
@@ -87,8 +128,10 @@ t_map	*get_map(char *file_path)
 	int		i;
 
 	i = 0;
-	tab_str = map_to_str(file_path, count_size(file_path));
-	write(1, tab_str, 936);
+	if (file_path)
+		tab_str = map_to_str(file_path, count_size(file_path));
+	else
+		tab_str = read_stdin();
 	if (!(map = malloc(sizeof(t_map))))
 		return (NULL);
 	map->height = get_nbr_line(tab_str);
