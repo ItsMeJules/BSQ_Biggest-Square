@@ -6,7 +6,7 @@
 /*   By: rblondel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 14:18:19 by rblondel          #+#    #+#             */
-/*   Updated: 2020/10/01 12:11:30 by rblondel         ###   ########.fr       */
+/*   Updated: 2020/10/01 12:25:38 by rblondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char	*read_stdin(void)
 	if (!(str = malloc(sizeof(char))))
 		return (NULL);
 	str[0] = 0;
-	while ((bytes = read(0, buf, 1)))
+	while ((bytes = read(0, buf, BUF_SIZE)))
 	{
 		strlen = len(str);
 		if (!(temp = malloc(sizeof(char) * bytes + strlen + 1)))

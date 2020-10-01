@@ -6,7 +6,7 @@
 /*   By: rblondel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 15:58:31 by rblondel          #+#    #+#             */
-/*   Updated: 2020/10/01 12:17:07 by rblondel         ###   ########.fr       */
+/*   Updated: 2020/10/01 12:26:53 by rblondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <sys/types.h>
 # include <unistd.h>
 # include <fcntl.h>
-# define BUF_SIZE 65536
+# define BUF_SIZE 16384
 # include <stdlib.h>
 # include "map.h"
 
