@@ -6,7 +6,7 @@
 /*   By: rblondel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 14:18:19 by rblondel          #+#    #+#             */
-/*   Updated: 2020/10/01 12:34:10 by rblondel         ###   ########.fr       */
+/*   Updated: 2020/10/01 12:41:52 by rblondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,11 @@ char	*str_con_cat(char *str, int length, char *buf, int lenstr)
 	i = 0;
 	y = 0;
 	if (!(temp = malloc(sizeof(char) * (length + 1))))
+	{
+		free(str);
+		free(buf);
 		return (NULL);
+	}
 	while (i < length)
 	{
 		if (i < lenstr)
