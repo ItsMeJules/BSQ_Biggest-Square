@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 16:44:44 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/09/30 18:45:22 by jpeyron          ###   ########.fr       */
+/*   Updated: 2020/10/01 11:12:13 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void			expand_square(t_square *sq);
 
 void			draw_square(t_square sq, t_map **map);
 int				reassign_square(t_map map, t_square *sq, int obs_x);
+void			expand_square(t_square *sq, int *x, int *y);
 t_square		*create_square(int x, int y, int len);
 
 #endif
