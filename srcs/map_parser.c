@@ -6,7 +6,7 @@
 /*   By: rblondel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 14:18:19 by rblondel          #+#    #+#             */
-/*   Updated: 2020/10/01 12:25:38 by rblondel         ###   ########.fr       */
+/*   Updated: 2020/10/01 12:34:10 by rblondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		count_size(char *filename)
 	unsigned long	count;
 
 	count = 0;
-	fd = filename == NULL ? 0 : open(filename, O_RDONLY);
+	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		return (0);
 	while ((bytes = read(fd, buf, BUF_SIZE)))
@@ -43,7 +43,7 @@ char	*map_to_str(char *filename, int sizeof_file)
 	int		fd;
 	char	*str;
 
-	fd = filename == NULL ? 0 : open(filename, O_RDONLY);
+	fd = open(filename, O_RDONLY);
 	if (!(str = malloc(sizeof(char) * sizeof_file + 1)))
 		return (0);
 	read(fd, str, sizeof_file);
