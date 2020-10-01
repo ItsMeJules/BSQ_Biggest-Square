@@ -6,7 +6,7 @@
 /*   By: rblondel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 15:58:31 by rblondel          #+#    #+#             */
-/*   Updated: 2020/10/01 11:11:08 by rblondel         ###   ########.fr       */
+/*   Updated: 2020/10/01 12:17:07 by rblondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <sys/types.h>
 # include <unistd.h>
 # include <fcntl.h>
-# define BUF_SIZE 16384
+# define BUF_SIZE 65536
 # include <stdlib.h>
 # include "map.h"
 
@@ -29,7 +29,7 @@ char	get_blank(char *str);
 char	get_obs(char *str);
 char	get_sq(char *str);
 int		get_len(char *str);
-int		map_error(t_map map);
+int		map_error(t_map map, int *ac);
 int		check_len(char *str, int len);
 int		check_char(char *str, char blk, char obs, char sq);
 int		check_line(char *str);

@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 16:48:57 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/10/01 11:19:29 by rblondel         ###   ########.fr       */
+/*   Updated: 2020/10/01 11:25:56 by rblondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ int			reassign_square(t_map map, t_square *sq, int obs_x)
 
 void		expand_square(t_square *sq, int *x, int *y)
 {
-	x = sq->min_x;
-	y = sq->min_y;
+	*x = sq->min_x;
+	*y = sq->min_y;
 	sq->len++;
 }
 

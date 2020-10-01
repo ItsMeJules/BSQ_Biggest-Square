@@ -6,7 +6,7 @@
 /*   By: rblondel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 14:18:19 by rblondel          #+#    #+#             */
-/*   Updated: 2020/10/01 11:17:48 by rblondel         ###   ########.fr       */
+/*   Updated: 2020/10/01 12:11:30 by rblondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*map_to_str(char *filename, int sizeof_file)
 	return (str);
 }
 
-char	*str_con_cat(char *str, int length, char *buf)
+char	*str_con_cat(char *str, int length, char *buf, int lenstr)
 {
 	char	*temp;
 	int		i;
@@ -64,7 +64,7 @@ char	*str_con_cat(char *str, int length, char *buf)
 		return (NULL);
 	while (i < length)
 	{
-		if (i < len(str))
+		if (i < lenstr)
 			temp[i] = str[i];
 		else
 		{
@@ -83,18 +83,18 @@ char	*read_stdin(void)
 	char	*str;
 	char	*temp;
 	char	buf[BUF_SIZE + 1];
-	int		i;
+	int		strlen;
 
 	str = NULL;
 	if (!(str = malloc(sizeof(char))))
 		return (NULL);
 	str[0] = 0;
-	while ((bytes = read(0, buf, BUF_SIZE)))
+	while ((bytes = read(0, buf, 1)))
 	{
-		i = 0;
-		if (!(temp = malloc(sizeof(char) * (bytes + len(str) + 1))))
+		strlen = len(str);
+		if (!(temp = malloc(sizeof(char) * bytes + strlen + 1)))
 			return (NULL);
-		temp = str_con_cat(str, bytes + len(str), buf);
+		temp = str_con_cat(str, bytes + strlen, buf, strlen);
 		free(str);
 		str = temp;
 		temp = NULL;

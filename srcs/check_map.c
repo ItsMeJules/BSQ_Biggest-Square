@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 11:17:44 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/10/01 11:17:46 by jpeyron          ###   ########.fr       */
+/*   Updated: 2020/10/01 12:09:32 by rblondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,18 @@ int	check_len(char *str, int height)
 	return (1);
 }
 
-int	map_error(t_map map)
+int	map_error(t_map map, int *ac)
 {
+	if (*ac == 1)
+		*ac = 0;
 	if (check_len(map.tab, map.height)
 		&& check_char(map.tab, map.blank, map.obs, map.sq)
 			&& check_line(map.tab))
 		return (1);
-	return (0);
+	else
+	{
+		if (*ac != 1)
+			write(1, "map error\n", 10);
+		return (0);
+	}
 }

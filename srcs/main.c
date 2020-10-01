@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 20:27:56 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/10/01 11:15:47 by jpeyron          ###   ########.fr       */
+/*   Updated: 2020/10/01 12:12:31 by rblondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,8 @@ int		main(int ac, char **av)
 	while (++i < ac || ac == 1)
 	{
 		map = get_map(ac == 1 ? NULL : av[i]);
-		if (!map_error(*map))
-		{
-			write(2, "map error\n", 10);
+		if (!map_error(*map, &ac))
 			continue;
-		}
 		if (resolve_one_one(map))
 			continue;
 		if (map->height == 1 || map->length == 1)
