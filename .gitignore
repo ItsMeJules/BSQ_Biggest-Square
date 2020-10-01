@@ -1,3 +1,5 @@
 srcs/*.swp
 includes/*.swp
 map/*
+includes/*.o
+srcs/*.o
