@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 16:48:57 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/09/30 23:52:21 by rblondel         ###   ########.fr       */
+/*   Updated: 2020/10/01 11:18:21 by rblondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		draw_square(t_square sq, t_map **map)
 	int		x;
 	int		y;
 	char	*c;
-	
+
 	y = sq.min_y + sq.len;
 	if (y < 0)
 		return ;

@@ -6,12 +6,22 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 15:10:50 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/09/30 18:50:15 by jpeyron          ###   ########.fr       */
+/*   Updated: 2020/10/01 11:12:01 by rblondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "square.h"
 #include "map.h"
+
+int			len(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
 
 int			has_obstacle(t_square sq, t_map map)
 {
