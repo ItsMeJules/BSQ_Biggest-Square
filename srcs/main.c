@@ -45,7 +45,7 @@ int		resolve_one_one(t_map *map)
 {
 	if (map->height == 1 && map->length == 1)
 	{
-		write(1, (map->tab[0] == map->blank) ? &map->blank : &map->obs, 1);
+		write(1, (map->tab[0] == map->blank) ? &map->sq : &map->obs, 1);
 		write(1, "\n", 1);
 		return (1);
 	}
