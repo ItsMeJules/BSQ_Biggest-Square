@@ -1,0 +1,138 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/17 16:26:13 by jules             #+#    #+#             */
+/*   Updated: 2022/01/14 01:07:05 by jules            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "get_next_line.h"
+#include <stdio.h>
+
+int	get_line_from_buff(char **line, t_file *elem)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	line[0] = malloc(sizeof(char) * (line_len(elem->buff) + 1));
+	if (!line[0])
+		return (-1);
+	while (elem->buff[i] && elem->buff[i] != 10)
+	{
+		line[0][i] = elem->buff[i];
+		i++;
+	}
+	line[0][i] = 0;
+	if (elem->buff[i] == 10)
+		i++;
+	while (elem->buff[i])
+	{
+		elem->buff[j] = elem->buff[i];
+		i++;
+		j++;
+	}
+	elem->buff[j] = 0;
+	return (1);
+}
+
+char	*concat(char *ret, t_file *elem, ssize_t bytes)
+{
+	char	*line;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	line = malloc(sizeof(char) * (ft_strlen(ret) + line_len(elem->buff) + 1));
+	if (!line)
+	{
+		if (ret)
+			free(ret);
+		return (0);
+	}
+	while (ret[i])
+	{
+		line[i] = ret[i];
+		i++;
+	}
+	while (elem->buff[j] != 10 && j < bytes)
+		line[i++] = elem->buff[j++];
+	line[i] = 0;
+	free(ret);
+	return (line);
+}
+
+int	manage_exit(t_file **root, t_file *elem, int bytes, char **line)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	if (bytes == 0)
+	{
+		ft_lstremove(root, elem->fd);
+		free(line[0]);
+		return (0);
+	}
+	while (i < bytes && elem->buff[i] != 10)
+		i++;
+	i++;
+	while (i < bytes)
+	{
+		elem->buff[j] = elem->buff[i];
+		i++;
+		j++;
+	}
+	elem->buff[j] = 0;
+	return (1);
+}
+
+int	find_endl(char *buff, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		if (buff[i] == 10)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	get_next_line(int fd, char **line)
+{
+	static t_file	*root = 0;
+	char			*ret;
+	ssize_t			bytes;
+	t_file			*elem;
+
+	ret = 0;
+	bytes = 0;
+	elem = get_lstelem(&root, fd);
+	if (!line || BUFFER_SIZE <= 0 || !elem)
+		return (-1);
+	if (ft_strlen(elem->buff) > line_len(elem->buff))
+		return (get_line_from_buff(line, elem));
+	if (get_line_from_buff(&ret, elem) == -1)
+		return (-1);
+	while (find_endl(elem->buff, bytes) == 0)
+	{
+		bytes = read(fd, elem->buff, BUFFER_SIZE);
+		if (!bytes)
+			break ;
+		else if (bytes < 0)
+			return (-1);
+		ret = concat(ret, elem, bytes);
+	}
+	line[0] = ret;
+	return (manage_exit(&root, elem, bytes, line));
+}

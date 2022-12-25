@@ -4,17 +4,16 @@ CFLAGS		=	-Wall -Werror -Wextra
 IFLAGS		=	-I$(INC_PATH)
 RM			=	rm -rf
 INC_PATH	=	includes
-INC_NAME	=	map.h \
-				map_parser.h \
-				square.h
+INC_NAME	=	bsq.h \
+				get_next_line.h
 
 SRC_PATH	=	srcs
 SRC_NAME	=	main.c \
 				map_parser.c \
 				square.c \
-				square_maths.c \
-				struct_assigner.c \
-				check_map.c \
+				map_utils.c \
+				get_next_line.c \
+				get_next_line_utils.c
 
 INC			=	$(addprefix $(INC_PATH)/, $(INC_NAME))
 SRC			=	$(addprefix $(SRC_PATH)/, $(SRC_NAME))

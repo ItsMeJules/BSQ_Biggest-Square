@@ -3,87 +3,112 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/28 20:27:56 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/10/01 12:42:02 by rblondel         ###   ########.fr       */
+/*   Created: 2022/01/14 01:07:07 by jules             #+#    #+#             */
+/*   Updated: 2022/04/02 00:09:11 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "map_parser.h"
-#include "square.h"
-#include "map.h"
+#include "bsq.h"
 
-void	resolve_map(t_map *map, t_square sq)
+void		draw_square(t_square sq, t_map map)
+{
+	int		x;
+	int		y;
+
+	y = sq.min_y + sq.len;
+	if (y < 0)
+		return ;
+	while (y >= sq.min_y)
+	{
+		x = sq.min_x + sq.len;
+		while (x >= sq.min_x)
+		{
+			map.tab[y * map.row_len + x] = map.sq;
+			x--;
+		}
+		y--;
+	}
+}
+
+void increase_size(t_square *bsq, t_square *sq)
+{
+	t_square sq_val;
+
+	sq_val = *sq;
+	sq->len++;
+	if (bsq->len < sq_val.len)
+	{
+		bsq->min_x = sq_val.min_x;
+		bsq->min_y = sq_val.min_y;
+		bsq->len = sq_val.len;				
+	}
+}
+
+void init_map_sq(t_map *map, t_square *sq)
+{
+	map->tab = NULL;
+	map->height = 0;
+	map->length = 0;
+	set_square(sq, 0);
+}
+
+void resolve_map(t_map map, t_square sq)
 {
 	int			obs_x;
-	int			found_x;
-	int			found_y;
-
-	found_x = -1;
-	found_y = -1;
-	while (sq.min_y + sq.len < map->height)
+	t_square	bsq;
+	t_square	*bsq_ptr;
+	t_square	*sq_ptr;
+	
+	obs_x = -1;
+	bsq_ptr = &bsq;
+	sq_ptr = &sq;
+	set_square(bsq_ptr, -1);
+	while (sq.min_y + sq.len < map.height)
 	{
-		if ((obs_x = has_obstacle(sq, *map)) == -1)
+		if (sq.min_x + sq.len >= map.row_len
+	 		|| bsq.min_x + bsq.len >= map.row_len)
 		{
-			while ((obs_x = has_obstacle_wall(sq, *map)) == -1 &&
-					sq.len + 1 < map->length)
-				expand_square(&sq, &found_x, &found_y);
-			if (obs_x != -1)
-				reassign_square(*map, &sq, obs_x);
+			sq.min_x = 0;
+			sq.min_y++;
+			sq.len = 0;
+			continue ;
 		}
 		else
-			reassign_square(*map, &sq, obs_x);
-	}
-	sq.min_x = found_x;
-	sq.min_y = found_y;
-	draw_square(sq, &map);
-}
-
-int		resolve_one_one(t_map *map)
-{
-	if (map->height == 1 && map->length == 1)
-	{
-		write(1, (map->tab[0] == map->blank) ? &map->sq : &map->obs, 1);
-		write(1, "\n", 1);
-		return (1);
-	}
-	return (0);
-}
-
-void	resolve_one_line(t_map *map)
-{
-	int	i;
-
-	i = 0;
-	while (map->tab[i] != map->blank)
-		i++;
-	map->tab[i] = map->sq;
-}
-
-int		main(int ac, char **av)
-{
-	int			i;
-	t_map		*map;
-	t_square	*sq;
-
-	i = 0;
-	while (++i < ac || ac == 1)
-	{
-		map = get_map(ac == 1 ? NULL : av[i]);
-		if (!map_error(*map, &ac))
-			continue;
-		if (resolve_one_one(map))
-			continue;
-		if (map->height == 1 || map->length == 1)
-			resolve_one_line(map);
+			obs_x = has_obstacle_walls(sq, map);		
+		if (obs_x == -1)
+			increase_size(bsq_ptr, sq_ptr);
 		else
-			resolve_map(map, *(sq = create_square(0, 0, 0)));
-		write(1, map->tab, map->height * (map->length + 1));
-		write(1, "\n", 1);
+			reassign_square(map, &sq, obs_x);
 	}
-	free(sq);
-	free(map);
+	draw_square(bsq, map);
+}
+
+int main(int ac, char **av)
+{
+	t_map		map;
+	t_square	sq;
+	int i;
+	int in;
+
+	i = 0;
+	in = ac ==1;
+	while (++i < ac || in)
+	{
+		init_map_sq(&map, &sq);
+		if (in)
+			parse_map(&map, NULL);
+		else
+			parse_map(&map, av[i]);
+		resolve_map(map, sq);
+		i = -1;
+		while (++i < map.height)
+		{
+			write(1, map.tab + i * map.row_len, map.row_len);
+			write(1, "\n", 1);
+		}
+		free(map.tab);
+	}
 	return (0);
 }

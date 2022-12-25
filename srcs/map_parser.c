@@ -3,130 +3,132 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rblondel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/26 14:18:19 by rblondel          #+#    #+#             */
-/*   Updated: 2020/10/01 12:41:52 by rblondel         ###   ########.fr       */
+/*   Created: 2022/01/14 01:06:50 by jules             #+#    #+#             */
+/*   Updated: 2022/01/20 01:21:28 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "map_parser.h"
-#include "map.h"
+#include "bsq.h"
 
-int		count_size(char *filename)
+char	*str_join(char *str, char *join, int join_len, int str_len)
 {
-	int				fd;
-	char			buf[BUF_SIZE + 1];
-	int				bytes;
-	unsigned long	count;
-
-	count = 0;
-	fd = open(filename, O_RDONLY);
-	if (fd == -1)
-		return (0);
-	while ((bytes = read(fd, buf, BUF_SIZE)))
-	{
-		if (bytes < 0)
-		{
-			close(fd);
-			return (0);
-		}
-		count += bytes;
-	}
-	close(fd);
-	return (count);
-}
-
-char	*map_to_str(char *filename, int sizeof_file)
-{
-	int		fd;
-	char	*str;
-
-	fd = open(filename, O_RDONLY);
-	if (!(str = malloc(sizeof(char) * sizeof_file + 1)))
-		return (0);
-	read(fd, str, sizeof_file);
-	close(fd);
-	str[sizeof_file] = 0;
-	return (str);
-}
-
-char	*str_con_cat(char *str, int length, char *buf, int lenstr)
-{
-	char	*temp;
-	int		i;
-	int		y;
+	char	*new;
+	int 	i;
+	int		j;
 
 	i = 0;
-	y = 0;
-	if (!(temp = malloc(sizeof(char) * (length + 1))))
+	if (str == NULL)
 	{
-		free(str);
-		free(buf);
-		return (NULL);
-	}
-	while (i < length)
-	{
-		if (i < lenstr)
-			temp[i] = str[i];
-		else
-		{
-			temp[i] = buf[y];
-			y++;
-		}
-		i++;
-	}
-	temp[i] = 0;
-	return (temp);
-}
-
-char	*read_stdin(void)
-{
-	int		bytes;
-	char	*str;
-	char	*temp;
-	char	buf[BUF_SIZE + 1];
-	int		strlen;
-
-	str = NULL;
-	if (!(str = malloc(sizeof(char))))
-		return (NULL);
-	str[0] = 0;
-	while ((bytes = read(0, buf, BUF_SIZE)))
-	{
-		strlen = len(str);
-		if (!(temp = malloc(sizeof(char) * bytes + strlen + 1)))
+		new = malloc((join_len + 1) * sizeof(char));
+		if (!new)
 			return (NULL);
-		temp = str_con_cat(str, bytes + strlen, buf, strlen);
-		free(str);
-		str = temp;
-		temp = NULL;
 	}
-	return (str);
+	else
+	{
+		new = malloc((join_len + str_len + 1) * sizeof(char));
+		if (!new)
+			return (NULL);
+		while (str[i])
+		{
+			new[i] = str[i];
+			i++;
+		}
+	}
+	free(str);
+	j = -1;
+	while (join[++j])
+		new[i + j] = join[j];
+	new[i + j] = 0;
+	return (new);
 }
 
-t_map	*get_map(char *file_path)
+int 	parse_map_attributes(t_parser *parser, t_map *map)
 {
-	t_map	*map;
-	char	*tab_str;
-	int		i;
+	int i;
 
+	parser->read_ret = get_next_line(parser->fd, &parser->line);
+	if (parser->read_ret <= 0)
+		return (1);
 	i = 0;
-	if (file_path)
-		tab_str = map_to_str(file_path, count_size(file_path));
-	else
-		tab_str = read_stdin();
-	if (!(map = malloc(sizeof(t_map))))
-		return (NULL);
-	map->height = get_nbr_line(tab_str);
-	map->blank = get_blank(tab_str);
-	map->obs = get_obs(tab_str);
-	map->sq = get_sq(tab_str);
-	while (tab_str[i] != '\n')
+	while (parser->line[i] >= '0' && parser->line[i] <= '9')
+	{
+		map->height = map->height * 10 + parser->line[i] - '0';
 		i++;
-	i++;
-	map->tab = tab_str + i;
-	map->length = get_len(map->tab);
-	return (map);
+	}
+	map->blank = parser->line[i];
+	map->obs = parser->line[i + 1];
+	map->sq = parser->line[i + 2];
+	free(parser->line);
+	if (map->blank < 32 || map->blank > 126
+		|| map->obs < 32 || map->obs > 126
+		|| map->sq < 32 || map->sq > 126)
+		return (2);
+	if (map->blank == map->obs || map->blank == map->sq || map->sq == map->obs)
+		return (3);
+	return (0);
+}
+
+int		check_line_len(t_parser *parser, t_map *map)
+{
+	int	len;
+
+	if (map->row_len == -1)
+	{
+		map->row_len = check_line(parser->line, map); // size of first map line so all other lines must be this size
+		len = map->row_len;
+	}
+	else
+		len = check_line(parser->line, map);
+	if (map->row_len != len)
+		return (-1);
+	return (len);
+}
+
+int		parse_file(t_parser *parser, t_map *map)
+{
+	int rows;
+	int len;
+
+	parser->read_ret = get_next_line(parser->fd, &parser->line); //2nd line read aka first map line
+	if (parser->read_ret <= 0)
+		return (1);
+	rows = 0;
+	map->row_len = -1;
+	while (parser->read_ret > 0)
+	{
+		len = check_line_len(parser, map);
+		if (len == -1)
+			return (2);
+		map->tab = str_join(map->tab, parser->line, map->row_len, map->length);
+		map->length += len;
+		rows++;
+		free(parser->line);
+		parser->read_ret = get_next_line(parser->fd, &parser->line);
+	}
+	if (rows != map->height)
+		return (3);
+	return (0);
+}
+
+int		parse_map(t_map *map, char *file)
+{
+	t_parser parser;
+	
+	parser.fd = 0;
+	if (file)
+	{
+		parser.fd = open(file, O_RDONLY);
+		if (parser.fd == -1)
+			return (1);
+	}
+	if (parse_map_attributes(&parser, map) || parse_file(&parser, map))
+	{
+		write(1, "map error\n", 10);
+		return (2);
+	}
+	if (parser.fd != 0)
+		close(parser.fd);
+	return (0);
 }

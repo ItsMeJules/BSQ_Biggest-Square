@@ -1,71 +1,67 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   square.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/28 16:48:57 by jpeyron           #+#    #+#             */
-/*   Updated: 2020/10/01 11:25:56 by rblondel         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "bsq.h"
 
-#include <stdlib.h>
-#include "square.h"
-#include "map.h"
-
-void		draw_square(t_square sq, t_map **map)
-{
-	int		x;
-	int		y;
-	char	*c;
-
-	y = sq.min_y + sq.len;
-	if (y < 0)
-		return ;
-	while (y >= sq.min_y)
-	{
-		x = sq.min_x + sq.len;
-		while (x >= sq.min_x)
-		{
-			c = &(*map)->tab[y * ((*map)->length + 1) + x];
-			if (*c != '\n')
-				*c = (*map)->sq;
-			x--;
-		}
-		y--;
-	}
-}
-
-int			reassign_square(t_map map, t_square *sq, int obs_x)
+int	reassign_square(t_map map, t_square *sq, int obs_x)
 {
 	if (map.height < sq->min_y + sq->len)
 		return (0);
-	if (map.length <= sq->min_x + sq->len + obs_x + 1)
+	if (map.row_len <= obs_x + 1 + sq->len) // +1 to go past the obstacle
 	{
 		sq->min_x = 0;
 		sq->min_y++;
+		sq->len = 0;
 	}
 	else
-		sq->min_x = obs_x + 1;
+	{
+		sq->min_x = obs_x + 1; // +1 to go past the obstacle
+		sq->len = 0;
+	}
 	return (1);
 }
 
-void		expand_square(t_square *sq, int *x, int *y)
+int	has_obstacle(t_square sq, t_map map)
 {
-	*x = sq->min_x;
-	*y = sq->min_y;
-	sq->len++;
+	int	x;
+	int	y;
+
+	y = sq.min_x + sq.len;
+	while (--y >= sq.min_y)
+	{
+		x = sq.min_x + sq.len;
+		while (--x >= sq.min_x)
+		{
+			if (get_char_at(map, x, y) == map.obs)
+				return (x);
+		}
+	}
+	return (0);
 }
 
-t_square	*create_square(int x, int y, int len)
+void	set_square(t_square *sq, int val)
 {
-	t_square	*sq;
+	sq->min_x = val;
+	sq->min_y = val;
+	sq->len = val;
+}
 
-	if (!(sq = malloc(sizeof(t_square))))
-		return (NULL);
-	sq->min_x = x;
-	sq->min_y = y;
-	sq->len = len;
-	return (sq);
+int	has_obstacle_walls(t_square sq, t_map map)
+{
+	int	x;
+	int	y;
+
+	x = sq.min_x + sq.len;
+	y = sq.min_y + sq.len;
+	while (x >= sq.min_x)
+	{
+		if (get_char_at(map, x, y) == map.obs)
+			return (x);
+		x--;
+	}
+	x = sq.min_x + sq.len;
+	while (y >= sq.min_y)
+	{
+		if (get_char_at(map, x, y) == map.obs)
+			return (x);
+		y--;
+	}
+	return (-1);
 }
